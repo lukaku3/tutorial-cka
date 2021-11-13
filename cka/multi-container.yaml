@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: two-containers
+  name: two-containers
+spec:
+  containers:
+  - image: nginx
+    name: ngixn-containers
+    volumeMounts:
+    - name: cache-volume
+      mountPath: /usr/share/nginx/html
+    resources: {}
+  # dnsPolicy: ClusterFirst
+  - image: debian
+    name: debian-containers
+    volumeMounts:
+    - name: cache-volume
+      mountPath: /usr/share/nginx/html
+      command: ["/bin/sh"]
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  volumes:
+  - name: cache-volume
+    emptyDir: {}
+status: {}
